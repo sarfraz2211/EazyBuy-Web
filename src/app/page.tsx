@@ -1,21 +1,47 @@
-export default function Home() {
+// Import reusable component
+import WelcomeCard from "../components/WelcomeCard";
+
+// Import Next.js image component
+import Image from "next/image";
+
+// Main screen
+export default function HomePage() {
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center bg-gray-100">
-      <h1 className="text-5xl font-bold text-blue-600">
-        EazyBuy SaaS Platform
-      </h1>
 
-      <p className="mt-4 text-lg text-gray-700">
-        Customer Web Application
-      </p>
+    // Full screen container
+    <main className="main-container">
 
-      <p className= "mt-4 text-lg text-green-700">
-           Home page design  coming here 
-      </p>
+      {/* Header section */}
+      <header className="header">
 
-      <button className="mt-6 rounded-lg bg-blue-600 px-6 py-3 text-white hover:bg-blue-700">
-        Get Started
-      </button>
+        {/* Left side logo */}
+        <div className="logo-container">
+
+          {/* Ecommerce logo */}
+          <Image
+            src="https://cdn-icons-png.flaticon.com/512/3081/3081559.png"
+            alt="logo"
+            width={45}
+            height={45}
+          />
+
+          {/* App name */}
+          <h2 className="logo-text">
+            EazyBuy
+          </h2>
+        </div>
+
+      </header>
+
+      {/* Center content */}
+      <section className="content-section">
+
+        {/* Reusable component */}
+        <WelcomeCard />
+
+      </section>
+
     </main>
   );
 }
