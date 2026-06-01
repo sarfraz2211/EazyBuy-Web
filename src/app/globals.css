@@ -1,128 +1,441 @@
 @import "tailwindcss";
-/* Remove default browser spacing */
+
+/* ===================================================== */
+/* RESET CSS */
+/* Removes default browser spacing */
+/* ===================================================== */
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Full body styling */
+/* ===================================================== */
+/* BODY */
+/* Full app background and font */
+/* ===================================================== */
+
 body {
+  background: #edf2f7;
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* ===================================================== */
+/* AUTH SCREENS */
+/* Login / Register / Forgot Password */
+/* ===================================================== */
+
+/* Full screen center alignment */
+
+.auth-main-container {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 20px;
+
   background: #edf2f7;
 }
 
-/* Main container */
+/* ===================================================== */
+/* AUTH CARD */
+/* White box container */
+/* ===================================================== */
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+
+  background: white;
+
+  border-radius: 24px;
+
+  padding: 40px 30px;
+
+  box-shadow: 0px 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* ===================================================== */
+/* LOGO */
+/* ===================================================== */
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 30px;
+}
+
+/* Logo icon */
+
+.logo-icon {
+  font-size: 32px;
+}
+
+/* Logo text */
+
+.logo-text {
+  font-size: 30px;
+  font-weight: bold;
+
+  color: #2563eb;
+
+  margin-left: 10px;
+}
+
+/* ===================================================== */
+/* TITLES */
+/* ===================================================== */
+
+.auth-title {
+  text-align: center;
+
+  font-size: 32px;
+  font-weight: bold;
+
+  color: #111827;
+
+  margin-bottom: 10px;
+}
+
+.auth-subtitle {
+  text-align: center;
+
+  color: #6b7280;
+
+  margin-bottom: 30px;
+
+  line-height: 1.5;
+}
+
+/* ===================================================== */
+/* INPUT FIELDS */
+/* ===================================================== */
+
+.auth-input {
+  width: 100%;
+  height: 52px;
+
+  border: 1px solid #d1d5db;
+
+  border-radius: 12px;
+
+  padding: 0 15px;
+
+  font-size: 16px;
+
+  margin-bottom: 18px;
+
+  outline: none;
+
+  transition: 0.3s;
+}
+
+/* Input focus effect */
+
+.auth-input:focus {
+  border-color: #2563eb;
+}
+
+/* ===================================================== */
+/* FORGOT PASSWORD */
+/* ===================================================== */
+
+.forgot-password-container {
+  text-align: right;
+  margin-bottom: 15px;
+}
+
+.forgot-password-container a {
+  color: #2563eb;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+/* ===================================================== */
+/* BUTTONS */
+/* ===================================================== */
+
+/* Button row */
+
+.button-row {
+  display: flex;
+
+  gap: 12px;
+
+  margin-top: 10px;
+
+  width: 100%;
+}
+
+/* Each button takes equal width */
+
+.button-wrapper {
+  flex: 1;
+}
+
+/* Link full width */
+
+.full-width-link {
+  display: block;
+  width: 100%;
+}
+
+/* Button inside link */
+
+.full-width-link button {
+  width: 100%;
+}
+
+/* Common button design */
+
+.auth-button-primary,
+.auth-button-secondary {
+  width: 100%;
+
+  height: 50px;
+
+  border: none;
+
+  border-radius: 12px;
+
+  color: white;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.3s;
+}
+
+/* Primary button */
+
+.auth-button-primary {
+  background: #22c55e;
+}
+
+/* Secondary button */
+
+.auth-button-secondary {
+  background: #2563eb;
+}
+
+/* Hover effect */
+
+.auth-button-primary:hover,
+.auth-button-secondary:hover {
+  transform: scale(1.03);
+}
+
+/* ===================================================== */
+/* WELCOME SCREEN */
+/* Home Page */
+/* ===================================================== */
+
+/* Main screen */
+
 .main-container {
   min-height: 100vh;
+
+  background: #edf2f7;
+
   display: flex;
   flex-direction: column;
 }
 
-/* Header */
+/* ===================================================== */
+/* HEADER */
+/* ===================================================== */
+
 .header {
   width: 100%;
-  padding: 20px 30px;
+
+  padding: 20px 40px;
 }
 
-/* Logo container */
-.logo-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
+/* ===================================================== */
+/* CENTER CONTENT */
+/* ===================================================== */
 
-/* Logo text */
-.logo-text {
-  color: #2563eb;
-  font-size: 28px;
-  font-weight: bold;
-}
-
-/* Center section */
 .content-section {
   flex: 1;
+
   display: flex;
+
   justify-content: center;
   align-items: center;
+
   padding: 20px;
 }
 
-/* Welcome card */
+/* ===================================================== */
+/* WELCOME CARD */
+/* ===================================================== */
+
 .welcome-card {
   width: 100%;
-  max-width: 450px;
+  max-width: 560px;
+
   background: white;
-  border-radius: 24px;
-  padding: 40px;
-  box-shadow: 0px 8px 30px rgba(0,0,0,0.1);
+
+  padding: 60px 40px;
+
+  border-radius: 30px;
+
+  box-shadow: 0px 10px 40px rgba(0, 0, 0, 0.08);
+
   text-align: center;
 }
 
-/* Main heading */
+/* ===================================================== */
+/* WELCOME TITLE */
+/* ===================================================== */
+
 .welcome-title {
-  font-size: 36px;
-  color: #1e293b;
-  margin-bottom: 15px;
+  font-size: 54px;
+
+  font-weight: bold;
+
+  color: #111827;
+
+  margin-bottom: 20px;
 }
 
-/* Subtitle */
+/* ===================================================== */
+/* WELCOME SUBTITLE */
+/* ===================================================== */
+
 .welcome-subtitle {
-  color: #64748b;
-  margin-bottom: 35px;
-  line-height: 1.6;
+  font-size: 22px;
+
+  line-height: 1.7;
+
+  color: #6b7280;
+
+  margin-bottom: 40px;
 }
 
-/* Button container */
+/* ===================================================== */
+/* WELCOME BUTTONS */
+/* ===================================================== */
+
 .button-group {
   display: flex;
-  gap: 15px;
+
   justify-content: center;
+
+  gap: 20px;
 }
 
-/* Buttons */
+/* ===================================================== */
+/* WELCOME BUTTON DESIGN */
+/* ===================================================== */
+
 .primary-button,
 .secondary-button {
+  min-width: 160px;
+
+  height: 56px;
+
   border: none;
-  padding: 14px 28px;
-  border-radius: 12px;
-  font-size: 16px;
+
+  border-radius: 14px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: white;
+
   cursor: pointer;
+
   transition: 0.3s;
 }
 
-/* Register */
+/* Register button */
+
 .primary-button {
   background: #2563eb;
-  color: white;
 }
 
-/* Sign in */
+/* Sign In button */
+
 .secondary-button {
   background: #0f172a;
-  color: white;
 }
 
 /* Hover effect */
+
 .primary-button:hover,
 .secondary-button:hover {
   transform: scale(1.05);
 }
 
-/* Mobile responsive */
-@media (max-width: 600px) {
+/* ===================================================== */
+/* MOBILE RESPONSIVE */
+/* ===================================================== */
 
-  .welcome-card {
+@media (max-width: 768px) {
+
+  /* Auth Card */
+
+  .auth-card {
     padding: 30px 20px;
   }
 
-  .welcome-title {
-    font-size: 28px;
+  /* Auth Title */
+
+  .auth-title {
+    font-size: 26px;
   }
+
+  /* Stack buttons vertically */
+
+  .button-row {
+    flex-direction: column;
+  }
+
+  /* Header */
+
+  .header {
+    padding: 20px;
+  }
+
+  /* Logo */
+
+  .logo-text {
+    font-size: 30px;
+  }
+
+  /* Welcome Card */
+
+  .welcome-card {
+    padding: 40px 25px;
+  }
+
+  /* Welcome Title */
+
+  .welcome-title {
+    font-size: 34px;
+  }
+
+  /* Welcome Subtitle */
+
+  .welcome-subtitle {
+    font-size: 18px;
+  }
+
+  /* Welcome buttons vertical */
 
   .button-group {
     flex-direction: column;
   }
+
+  /* Full width buttons */
 
   .primary-button,
   .secondary-button {
