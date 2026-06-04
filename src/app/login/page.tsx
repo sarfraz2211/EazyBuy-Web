@@ -1,65 +1,143 @@
+"use client";
+
+import { useState } from "react";
+import Link from "next/link";
+
 import AuthButton from "@/src/components/auth/AuthButton";
 import AuthContainer from "@/src/components/auth/AuthContainer";
 import AuthInput from "@/src/components/auth/AuthInput";
-import Link from "next/link";
+
+import Toast from "@/src/components/common/Toast";
+import CustomModal from "@/src/components/common/CustomModal";
+
+import { validateLogin } from "@/src/utils/validation";
 
 export default function LoginPage() {
 
+  const [mobile, setMobile] = useState("");
+
+  const [password, setPassword] = useState("");
+
+  const [toastMessage, setToastMessage] =
+    useState("");
+
+  const [toastType, setToastType] =
+    useState<"success" | "error">("success");
+
+  const [showModal, setShowModal] =
+    useState(false);
+
+  const handleLogin = () => {
+
+    const error = validateLogin(
+      mobile,
+      password
+    );
+
+    if (error) {
+
+      setToastType("error");
+
+      setToastMessage(error);
+
+      return;
+    }
+
+    setToastType("success");
+
+    setToastMessage(
+      "Validation Successful"
+    );
+
+    setShowModal(true);
+  };
+
   return (
 
-    <AuthContainer
-      title="Welcome Back"
-      subtitle="Login to continue shopping smarter"
-    >
+    <>
 
-      <AuthInput
-        placeholder="Enter contact number"
+      {/* Toast */}
+      <Toast
+        message={toastMessage}
+        type={toastType}
       />
 
-      <AuthInput
-        type="password"
-        placeholder="Enter password"
+      {/* Success Modal */}
+      <CustomModal
+        open={showModal}
+        title="Login Success"
+        message="Welcome to EazyBuy"
+        onClose={() =>
+          setShowModal(false)
+        }
       />
 
-      <div className="forgot-password-container">
+      <AuthContainer
+        title="Welcome Back"
+        subtitle="Login to continue shopping smarter"
+      >
 
-        <Link href="/forget-password">
-          Forgot Password?
-        </Link>
+        {/* Mobile Number */}
+        <AuthInput
+          placeholder="Enter contact number"
+          value={mobile}
+          onChange={(e) =>
+            setMobile(e.target.value)
+          }
+        />
 
-      </div>
+        {/* Password */}
+        <AuthInput
+          type="password"
+          placeholder="Enter password"
+          value={password}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+        />
 
-      <div className="button-row">
+        {/* Forgot Password */}
+        <div className="forgot-password-container">
 
-        {/* Login Button */}
-        <div className="button-wrapper">
-
-          <AuthButton
-            title="Login"
-          />
-
-        </div>
-
-        {/* Register Button */}
-        <div className="button-wrapper">
-
-          <Link
-            href="/register"
-            className="full-width-link"
-          >
-
-            <AuthButton
-              title="Register"
-              variant="secondary"
-            />
-
+          <Link href="/forget-password">
+            Forgot Password?
           </Link>
 
         </div>
 
-      </div>
+        {/* Buttons */}
+        <div className="button-row">
 
-    </AuthContainer>
+          <div className="button-wrapper">
+
+            <AuthButton
+              title="Login"
+              onClick={handleLogin}
+            />
+
+          </div>
+
+          <div className="button-wrapper">
+
+            <Link
+              href="/register"
+              className="full-width-link"
+            >
+
+              <AuthButton
+                title="Register"
+                variant="secondary"
+              />
+
+            </Link>
+
+          </div>
+
+        </div>
+
+      </AuthContainer>
+
+    </>
 
   );
 }
