@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 import AuthButton from "@/src/components/auth/AuthButton";
@@ -13,6 +14,8 @@ import CustomModal from "@/src/components/common/CustomModal";
 import { validateLogin } from "@/src/utils/validation";
 
 export default function LoginPage() {
+
+  const router = useRouter();
 
   const [mobile, setMobile] = useState("");
 
@@ -49,7 +52,10 @@ export default function LoginPage() {
       "Validation Successful"
     );
 
-    setShowModal(true);
+    // setShowModal(true);
+
+    router.push("/home-screen");
+
   };
 
   return (
@@ -109,11 +115,11 @@ export default function LoginPage() {
         <div className="button-row">
 
           <div className="button-wrapper">
-
             <AuthButton
               title="Login"
               onClick={handleLogin}
             />
+        
 
           </div>
 
