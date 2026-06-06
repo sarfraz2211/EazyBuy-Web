@@ -109,11 +109,18 @@ export default function RegisterPage() {
           onChange={(e) =>
             setName(e.target.value)
           }/>
-      <AuthInput placeholder="Enter contact number" 
-         value={mobile}
+      <AuthInput
+          type="tel"
+          placeholder="Enter contact number"
+          value={mobile}
           onChange={(e) =>
-            setMobile(e.target.value)
-          }/>
+            setMobile(
+              e.target.value
+                .replace(/\D/g, "")
+                .slice(0, 10)
+            )
+          }
+        />
       <AuthInput type="password" placeholder="Create password" 
          value={password}
           onChange={(e) =>

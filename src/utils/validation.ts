@@ -11,9 +11,10 @@ export const validateLogin = (
     return "Please enter password";
   }
 
-  if (mobile.length < 10) {
-    return "Invalid mobile number";
-  }
+  if (!/^\d{10}$/.test(mobile)) {
+  return "Mobile number must be exactly 10 digits";
+}
+
 
   return "";
 };
@@ -50,9 +51,24 @@ export const validateSignUp = (
     return "Please enter merchant ID";
   }
 
-  if (mobile.length < 10) {
-    return "Invalid mobile number";
+  if (!/^\d{10}$/.test(mobile)) {
+  return "Mobile number must be exactly 10 digits";
   }
+
 
   return "";
 };
+
+export const validatePasswordReset = (
+  mobile : string
+) => {
+  if (!mobile.trim()) {
+    return "Please enter contact number";
+  }
+
+  if (!/^\d{10}$/.test(mobile)) {
+  return "Mobile number must be exactly 10 digits";
+}
+  return "";
+
+}

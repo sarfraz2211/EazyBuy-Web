@@ -85,12 +85,17 @@ export default function LoginPage() {
 
         {/* Mobile Number */}
         <AuthInput
+          type="tel"
           placeholder="Enter contact number"
           value={mobile}
           onChange={(e) =>
-            setMobile(e.target.value)
+            setMobile(
+              e.target.value
+                .replace(/\D/g, "")
+                .slice(0, 10)
+            )
           }
-        />
+      />
 
         {/* Password */}
         <AuthInput
