@@ -13,6 +13,13 @@ import CustomModal from "@/src/components/common/CustomModal";
 
 import { validateLogin } from "@/src/utils/validation";
 
+
+import { useAppDispatch } from "@/src/redux/hooks";
+
+import { AppDispatch } from "@/src/redux/store";
+
+import { loginUser } from "@/src/redux/authSlice";
+
 export default function LoginPage() {
 
   const router = useRouter();
@@ -21,42 +28,76 @@ export default function LoginPage() {
 
   const [password, setPassword] = useState("");
 
-  const [toastMessage, setToastMessage] =
-    useState("");
+  const [toastMessage, setToastMessage] = useState("");
 
-  const [toastType, setToastType] =
-    useState<"success" | "error">("success");
+  const [toastType, setToastType] =  useState<"success" | "error">("success");
 
-  const [showModal, setShowModal] =
-    useState(false);
+  const [showModal, setShowModal] =  useState(false);
 
-  const handleLogin = () => {
+  const dispatch = useAppDispatch();
 
-    const error = validateLogin(
-      mobile,
-      password
+  const handleLogin = async () => {
+
+  const error = validateLogin(
+    mobile,
+    password
+  );
+
+  if (error) {
+
+    setToastType("error");
+    setToastMessage(error);
+
+    return;
+  }
+
+  try {
+
+    const result = await dispatch(
+      loginUser({
+        contactNumber: mobile,
+        password,
+      })
     );
 
-    if (error) {
+    if (loginUser.fulfilled.match(result)) {
+
+      setToastType("success");
+
+      setToastMessage(
+        "Login Successful"
+      );
+
+      sessionStorage.setItem(
+        "token",
+        result.payload.token
+      );
+
+      sessionStorage.setItem(
+        "profile",
+        JSON.stringify(result.payload)
+      );
+
+      router.push("/home-screen");
+
+    } else {
 
       setToastType("error");
 
-      setToastMessage(error);
-
-      return;
+      setToastMessage(
+        "Login Failed"
+      );
     }
 
-    setToastType("success");
+  } catch (error) {
+
+    setToastType("error");
 
     setToastMessage(
-      "Validation Successful"
+      "Something went wrong"
     );
-
-    // setShowModal(true);
-
-    router.push("/home-screen");
-
-  };
+  }
+};
 
   return (
 

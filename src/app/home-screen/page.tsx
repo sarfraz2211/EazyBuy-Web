@@ -1,19 +1,57 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-
-import AuthButton from "@/src/components/auth/AuthButton";
-import AuthContainer from "@/src/components/auth/AuthContainer";
-import AuthInput from "@/src/components/auth/AuthInput";
-
-import Toast from "@/src/components/common/Toast";
-import CustomModal from "@/src/components/common/CustomModal";
+import {
+  useAppSelector
+} from "@/src/redux/hooks";
 
 export default function HomeScreen() {
+
+  const user =
+    useAppSelector(
+      state => state.auth.profile
+    );
+
   return (
-    <div>
-      <h1>Home Screen</h1>
+
+    <div
+      style={{
+        padding: "30px"
+      }}
+    >
+
+      <h1>
+        Home Screen
+      </h1>
+
+      <br />
+
+      <h2>
+        Welcome {user?.name}
+      </h2>
+
+      <br />
+
+      <p>
+        Mobile :
+        {user?.contactNumber}
+      </p>
+
+      <p>
+        Merchant :
+        {user?.merchantId}
+      </p>
+
+      <p>
+        Address :
+        {user?.address}
+      </p>
+
+      <img
+        src={user?.imageUrl}
+        width={150}
+        alt="profile"
+      />
+
     </div>
   );
 }
