@@ -5,6 +5,8 @@ import {
 
 import { loginApi } from "@/src/services/authService";
 
+import { resetPasswordApi } from "@/src/services/authService";
+
 export const loginUser =
   createAsyncThunk(
     "auth/login",
@@ -22,7 +24,24 @@ export const loginUser =
     }
   );
 
-  interface AuthState {
+  export const resetPassword =
+  createAsyncThunk(
+    "auth/reset-password",
+    async (
+      request: {
+        contactNumber: string;
+        newPassword: string;
+      }
+    ) => {
+
+      const response = await resetPasswordApi(request);
+
+      return response;
+    }
+  );
+
+
+ interface AuthState {
 
   loading: boolean;
 
@@ -31,6 +50,8 @@ export const loginUser =
   profile: any;
 
   error: string | null;
+
+  resetPasswordSuccess: boolean;
 }
 
 const initialState: AuthState = {
@@ -42,6 +63,8 @@ const initialState: AuthState = {
   profile: null,
 
   error: null,
+
+  resetPasswordSuccess: false,
 };
 
 const authSlice = createSlice({
@@ -87,6 +110,38 @@ const authSlice = createSlice({
 
       .addCase(
         loginUser.rejected,
+        (state, action) => {
+
+          state.loading = false;
+
+          state.error =
+            action.error.message || "";
+        }
+      )
+      .addCase(
+        resetPassword.pending,
+        (state) => {
+
+          state.loading = true;
+
+          state.error = null;
+  }
+      )
+      .addCase(
+        resetPassword.fulfilled,
+            (state, action) => {
+
+          state.loading = false;
+
+          state.profile = action.payload;
+
+          state.token = action.payload.token;
+          
+          state.resetPasswordSuccess = true;
+        }
+      )
+      .addCase(
+        resetPassword.rejected,
         (state, action) => {
 
           state.loading = false;

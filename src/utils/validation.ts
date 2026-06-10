@@ -60,7 +60,8 @@ export const validateSignUp = (
 };
 
 export const validatePasswordReset = (
-  mobile : string
+  mobile : string,
+  password: string,
 ) => {
   if (!mobile.trim()) {
     return "Please enter contact number";
@@ -69,6 +70,9 @@ export const validatePasswordReset = (
   if (!/^\d{10}$/.test(mobile)) {
   return "Mobile number must be exactly 10 digits";
 }
+  if (!password.trim()) {
+    return "Please enter new password";
+  }
   return "";
 
 }

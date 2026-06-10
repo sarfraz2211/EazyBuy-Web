@@ -10,13 +10,19 @@ import AuthInput from "@/src/components/auth/AuthInput";
 import Toast from "@/src/components/common/Toast";
 import CustomModal from "@/src/components/common/CustomModal";
 
+import { useAppDispatch } from "@/src/redux/hooks";
+
+import { resetPassword } from "@/src/redux/authSlice";
+
 import { validatePasswordReset } from "@/src/utils/validation";
 
 export default function ForgetPasswordPage() {
 
   const router = useRouter();
 
-  const [mobile, setMobile] = useState("");
+  const [contactNumber, setContactNumber] = useState("");
+
+  const [newPassword, setNewPassword] = useState("");
 
   const [toastMessage, setToastMessage] = useState("");
 
@@ -24,20 +30,48 @@ export default function ForgetPasswordPage() {
 
   const [showModal, setShowModal] = useState(false);
 
-  const handleResetPassword = () => {
+   const dispatch = useAppDispatch();
+
+  const handleResetPassword = async () => {
     
-    const error = validatePasswordReset(mobile);
+    const error = validatePasswordReset(contactNumber,newPassword);
 
     if ( error) {
       setToastMessage( error);
       setToastType("error")
 
-    } else {
-       setToastType( "success")
+      return;
+    }
 
-       setToastMessage ("Password Reset Successfully");
+    try {
+       // call reset password api here and handle response accordingly
+        const result = await dispatch(
+              resetPassword({
+                contactNumber: contactNumber,
+                newPassword: newPassword
+              })
+            );
 
-       setShowModal(true);
+            if (resetPassword.fulfilled.match(result)) { 
+                setToastType("success");
+
+                  setToastMessage(
+                    "Password reset successful. please login to enjoy services."
+                  );
+
+                  setShowModal(true);
+
+            } else {
+                setToastType("error");
+
+              setToastMessage(
+                "Reset Password Failed. please try again."
+                );
+            }
+       
+    } catch (error) {
+      setToastMessage("An error occurred while resetting the password.");
+      setToastType("error");
     }
 
   };
@@ -66,20 +100,31 @@ export default function ForgetPasswordPage() {
 
     <AuthContainer
       title="Reset Your Password"
-      subtitle="Enter your contact number to receive a password reset link"
+      subtitle="Enter new password as your login password."
     >
       <AuthInput
         type="tel"
         placeholder="Enter contact number"
-        value={mobile}
+        value={contactNumber}
         onChange={(e) =>
-          setMobile(
+          setContactNumber(
             e.target.value
               .replace(/\D/g, "")
               .slice(0, 10)
           )
         }
       />
+      <div className= "forget-password-container">
+         {/* Password */}
+                 <AuthInput
+                   type="password"
+                   placeholder="Enter new password"
+                   value={newPassword}
+                   onChange={(e) =>
+                     setNewPassword(e.target.value)
+                   }
+                 />
+      </div>
       <div className="button-row">
         <AuthButton 
         title="Reset Password" 
