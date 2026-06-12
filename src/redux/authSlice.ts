@@ -3,9 +3,8 @@ import {
   createSlice
 } from "@reduxjs/toolkit";
 
-import { loginApi } from "@/src/services/authService";
+import { loginApi , resetPasswordApi , registerApi  } from "@/src/services/authService";
 
-import { resetPasswordApi } from "@/src/services/authService";
 
 export const loginUser =
   createAsyncThunk(
@@ -24,8 +23,7 @@ export const loginUser =
     }
   );
 
-  export const resetPassword =
-  createAsyncThunk(
+  export const resetPassword = createAsyncThunk(
     "auth/reset-password",
     async (
       request: {
@@ -40,6 +38,19 @@ export const loginUser =
     }
   );
 
+  export const registerUser = createAsyncThunk(
+  "auth/register",
+  async (
+    request: FormData
+  ) => {
+
+    const response =
+      await registerApi(request);
+
+    return response;
+  }
+);
+
 
  interface AuthState {
 
@@ -52,6 +63,8 @@ export const loginUser =
   error: string | null;
 
   resetPasswordSuccess: boolean;
+
+  registerSuccess: boolean;
 }
 
 const initialState: AuthState = {
@@ -65,6 +78,8 @@ const initialState: AuthState = {
   error: null,
 
   resetPasswordSuccess: false,
+  
+  registerSuccess: false
 };
 
 const authSlice = createSlice({
@@ -148,6 +163,37 @@ const authSlice = createSlice({
 
           state.error =
             action.error.message || "";
+        }
+      )
+      .addCase(
+        registerUser.pending,
+        (state) => {
+
+          state.loading = true;
+
+          state.error = null;
+        }
+      )
+      .addCase(
+        registerUser.fulfilled,
+        (state, action) => {
+
+          state.loading = false;
+
+          state.registerSuccess = true;
+
+           state.profile = action.payload;
+
+          state.token = action.payload.token;
+        }
+      )
+      .addCase(
+        registerUser.rejected,
+        (state, action) => {
+
+          state.loading = false;
+
+          state.error = action.error.message || "";
         }
       );
   },

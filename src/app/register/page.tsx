@@ -13,9 +13,17 @@ import CustomModal from "@/src/components/common/CustomModal";
 
 import { validateSignUp } from "@/src/utils/validation";
 
+import { useAppDispatch } from "@/src/redux/hooks";
+
+import { registerUser } from "@/src/redux/authSlice";
+
+import { useAppSelector } from "@/src/redux/hooks";
+
 export default function RegisterPage() {
   
   const router = useRouter();
+ 
+  const dispatch = useAppDispatch();
   
   const [name, setName] = useState("");
   const [mobile, setMobile] = useState("");
@@ -24,16 +32,21 @@ export default function RegisterPage() {
   const [address, setAddress] = useState("");
   const [merchantId, setMerchantId] = useState("");
 
+  const [image, setImage] = useState<File | null>(null);
+
+  const [imagePreview, setImagePreview] = useState("");
+
   const [toastMessage, setToastMessage] =
     useState("");
 
   const [toastType, setToastType] =
     useState<"success" | "error">("success");
 
-    const [showModal, setShowModal] =
-    useState(false);
+    const [showModal, setShowModal] = useState(false);
 
-  const handleSignup = () => {
+    const loading = useAppSelector(state => state.auth.loading);
+
+  const handleSignup = async () => {
 
   const errorMessage = validateSignUp(
     name,
@@ -48,15 +61,64 @@ export default function RegisterPage() {
     setToastMessage(errorMessage);
     setToastType("error");
 
-  } else {
+    return;
 
-    setToastType("success");
+  } 
+
+  try {
+    
+    const formData = new FormData();
+
+    formData.append("name", name);
+
+    formData.append( "contactNumber", mobile);
+
+    formData.append( "password", password);
+
+    formData.append( "address", address);
+
+    formData.append("merchantId",merchantId);
+
+    if (image) {
+
+    formData.append( "image", image);
+    }
+    const result = await dispatch(registerUser(formData));
+
+    if (registerUser.fulfilled.match(result)) {
+          setToastType("success");
+
+        setToastMessage(
+          "Registration Successful"
+      );
+
+      sessionStorage.setItem(
+        "token",
+        result.payload.token
+      );
+
+      sessionStorage.setItem(
+        "profile",
+        JSON.stringify(result.payload)
+      );
+
+       setShowModal(true);
+    } else {
+
+      setToastType("error");
+
+      setToastMessage(
+        "Registration Failed"
+      );
+    }
+
+  } catch (error) {
+
+    setToastType("error");
 
     setToastMessage(
-      "Registration Successful"
+      "Something went wrong"
     );
-
-    setShowModal(true);
   }
 };
   
@@ -89,21 +151,51 @@ export default function RegisterPage() {
        {/* Profile Image Upload */}
       <div className="profile-upload-container">
 
-        <label
-          htmlFor="profileImage"
-          className="profile-upload-label"
-        >
-          +
-        </label>
+              <img
+                src={
+                  imagePreview ||
+                  "/default-user.png"
+                }
+                alt="Profile"
+                className="profile-image"
+              />
 
-        <input
-          type="file"
-          id="profileImage"
-          accept="image/*"
-          className="profile-upload-input"
-        />
+              <label
+                htmlFor="profileImage"
+                className="upload-button"
+              >
+                Change Photo
+              </label>
 
-      </div>
+              <input
+                type="file"
+                id="profileImage"
+                accept="image/*"
+                className="profile-upload-input"
+                onChange={(e) => {
+
+                  if (
+                    e.target.files &&
+                    e.target.files[0]
+                  ) {
+
+                    const file =
+                      e.target.files[0];
+
+                    setImage(file);
+
+                    setImagePreview(
+                      URL.createObjectURL(file)
+                    );
+                  }
+                }}
+              />
+
+            </div>
+
+      <div className="register-form-grid">
+
+     
       <AuthInput placeholder="Enter full name" 
          value={name}
           onChange={(e) =>
@@ -136,12 +228,20 @@ export default function RegisterPage() {
           onChange={(e) =>
             setMerchantId(e.target.value)
           }/>
+    </div>
        <div className="button-row">
-        <AuthButton
-          title="Register"
-          onClick={handleSignup}
-        />
-      </div>
+
+            <AuthButton
+              title={
+                loading
+                  ? "Registering..."
+                  : "Register"
+              }
+              disabled={loading}
+              onClick={handleSignup}
+            />
+
+</div>
 
     </AuthContainer>
 

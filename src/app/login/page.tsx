@@ -20,6 +20,8 @@ import { AppDispatch } from "@/src/redux/store";
 
 import { loginUser } from "@/src/redux/authSlice";
 
+import { useAppSelector } from "@/src/redux/hooks";
+
 export default function LoginPage() {
 
   const router = useRouter();
@@ -33,6 +35,8 @@ export default function LoginPage() {
   const [toastType, setToastType] =  useState<"success" | "error">("success");
 
   const [showModal, setShowModal] =  useState(false);
+
+  const loading = useAppSelector(state => state.auth.loading);
 
   const dispatch = useAppDispatch();
 
@@ -162,7 +166,12 @@ export default function LoginPage() {
 
           <div className="button-wrapper">
             <AuthButton
-              title="Login"
+              title={
+                loading
+                  ? "Logging in..."
+                  : "Login"
+              }
+              disabled={loading}
               onClick={handleLogin}
             />
         

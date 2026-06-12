@@ -1,23 +1,23 @@
 import React from "react";
 
-/* Props */
-
 interface AuthButtonProps {
 
   title: string;
 
   variant?: "primary" | "secondary";
 
+  disabled?: boolean;
+
   onClick?: () => void;
 }
-
-/* Reusable Button Component */
 
 export default function AuthButton({
 
   title,
 
   variant = "primary",
+
+  disabled = false,
 
   onClick,
 
@@ -26,18 +26,15 @@ export default function AuthButton({
   return (
 
     <button
+      disabled={disabled}
       onClick={onClick}
-
       className={
         variant === "primary"
           ? "auth-button-primary"
           : "auth-button-secondary"
       }
     >
-
       {title}
-
     </button>
-
   );
 }
