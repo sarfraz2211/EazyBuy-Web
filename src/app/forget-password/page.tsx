@@ -16,6 +16,8 @@ import { resetPassword } from "@/src/redux/authSlice";
 
 import { validatePasswordReset } from "@/src/utils/validation";
 
+import { useAppSelector } from "@/src/redux/hooks";
+
 export default function ForgetPasswordPage() {
 
   const router = useRouter();
@@ -29,6 +31,8 @@ export default function ForgetPasswordPage() {
   const [toastType, setToastType] = useState<"success" | "error">("success");
 
   const [showModal, setShowModal] = useState(false);
+
+  const loading = useAppSelector(state => state.auth.loading);
 
    const dispatch = useAppDispatch();
 
@@ -127,7 +131,12 @@ export default function ForgetPasswordPage() {
       </div>
       <div className="button-row">
         <AuthButton 
-        title="Reset Password" 
+        title={
+                loading
+                  ? "Resetting..."
+                  : "Reset Password"
+              }
+              disabled={loading} 
          onClick={handleResetPassword}/>
       </div>
     </AuthContainer>

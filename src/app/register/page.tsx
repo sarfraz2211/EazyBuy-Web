@@ -92,15 +92,7 @@ export default function RegisterPage() {
           "Registration Successful"
       );
 
-      sessionStorage.setItem(
-        "token",
-        result.payload.token
-      );
-
-      sessionStorage.setItem(
-        "profile",
-        JSON.stringify(result.payload)
-      );
+      localStorage.setItem("token", result.payload.token );
 
        setShowModal(true);
     } else {

@@ -66,20 +66,12 @@ export default function LoginPage() {
 
     if (loginUser.fulfilled.match(result)) {
 
+      localStorage.setItem("token", result.payload.token );
+      
       setToastType("success");
-
+ 
       setToastMessage(
         "Login Successful"
-      );
-
-      sessionStorage.setItem(
-        "token",
-        result.payload.token
-      );
-
-      sessionStorage.setItem(
-        "profile",
-        JSON.stringify(result.payload)
       );
 
       router.push("/home-screen");

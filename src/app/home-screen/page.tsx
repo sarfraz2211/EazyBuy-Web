@@ -1,8 +1,7 @@
 "use client";
 
-import {
-  useAppSelector
-} from "@/src/redux/hooks";
+import { useAppSelector } from "@/src/redux/hooks";
+
 
 export default function HomeScreen() {
 
