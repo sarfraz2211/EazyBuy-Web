@@ -9,6 +9,8 @@ import {
   persistStore,
 } from "redux-persist";
 
+import { baseApi } from "@/src/services/baseApi";
+
 const authPersistConfig = {
 
   key: "auth",
@@ -29,18 +31,25 @@ export const store =
 
       auth:
         persistedAuthReducer,
+
+      [baseApi.reducerPath]:
+        baseApi.reducer,
     },
 
     middleware:
       getDefaultMiddleware =>
+
         getDefaultMiddleware({
 
           serializableCheck: false,
-        }),
+
+        }).concat(
+          baseApi.middleware
+        ),
   });
 
 export const persistor = persistStore(store);
 
-export type RootState = ReturnType< typeof store.getState>;
+export type RootState = ReturnType< typeof store.getState >;
 
 export type AppDispatch = typeof store.dispatch;
