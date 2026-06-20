@@ -1,20 +1,20 @@
 import api from "./api";
 import { LoginRequest  } from "@/src/models/LoginRequest";
 import { ResetPasswordRequest } from "@/src/models/ResetPasswordRequest";
-import { RegisterRequest } from "@/src/models/RegisterRequest";
+import type { LoginResponse } from "@/src/models/LoginResponse";
 
 
-export const loginApi = async (request: LoginRequest) => {
+export const loginApi = async (request: LoginRequest): Promise<LoginResponse> => {
     const response = await api.post("/auth/login", request );
     return response.data;
 };
 
-export const resetPasswordApi = async ( request: ResetPasswordRequest) => {
+export const resetPasswordApi = async ( request: ResetPasswordRequest): Promise<LoginResponse> => {
     const response = await api.put("/auth/forgetPassword", request);
     return response.data;
 }
 
-export const registerApi = async ( request: FormData) => {
+export const registerApi = async ( request: FormData): Promise<LoginResponse> => {
 
   const formData = new FormData();
 

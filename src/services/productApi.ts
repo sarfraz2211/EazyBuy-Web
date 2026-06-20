@@ -1,6 +1,7 @@
 // src/redux/services/productApi.ts
 
 import { baseApi } from "./baseApi";
+import type { Product } from "@/src/models/Product";
 
 export const productApi =
   baseApi.injectEndpoints({
@@ -9,7 +10,7 @@ export const productApi =
 
       getProducts:
 
-        builder.query<any, string>({
+        builder.query<Product[] | { data?: Product[]; products?: Product[] }, string>({
 
           query: merchantId =>
 
@@ -18,11 +19,13 @@ export const productApi =
 
       searchProducts:
 
-        builder.query<any, string>({
+        builder.query<Product[] | { data?: Product[]; products?: Product[] }, { merchantId: string; searchTerm: string }>({
 
-          query: merchantId =>
-
-            `/products/searchProduct/${merchantId}`,
+          // The protected route receives the typed search text as a query parameter.
+          query: ({ merchantId, searchTerm }) => ({
+            url: `/products/searchProduct/${merchantId}`,
+            params: { search: searchTerm },
+          }),
         }),
     }),
   });

@@ -4,6 +4,7 @@ import {
 } from "@reduxjs/toolkit";
 
 import { loginApi , resetPasswordApi , registerApi  } from "@/src/services/authService";
+import type { LoginResponse } from "@/src/models/LoginResponse";
 
 
 export const loginUser =
@@ -58,7 +59,7 @@ export const loginUser =
 
   token: string | null;
 
-  profile: any;
+  profile: LoginResponse | null;
 
   error: string | null;
 
