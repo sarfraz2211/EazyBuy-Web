@@ -5,6 +5,8 @@ export const baseApi = createApi({
 
   reducerPath: "api",
 
+  tagTypes: ["Cart"],
+
   baseQuery: fetchBaseQuery({
 
     baseUrl:
