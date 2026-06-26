@@ -1,0 +1,55 @@
+Mongodb atlas -
+
+username - startwork6995@gmail.com    - Sahirlub2211
+password- sahirlub2211                  
+
+Render is used for Production - 
+
+DRM info 
+
+ How to MAKE REST Api with mongoDB , EXPRESS, NODE.JS
+
+1. Install prerequisites
+
+Node.js (v18+ recommended)
+
+npm or yarn (comes with Node)
+
+MongoDB (local or Atlas cloud)
+
+2. Create project
+   mkdir ecommerce-api
+  cd ecommerce-api
+  npm init -y
+
+3. Install dependencies
+
+    npm install express mongoose cors dotenv
+    npm install --save-dev nodemon
+
+4. 🔑 What they do:
+
+express → framework for building REST APIs.
+
+mongoose → ODM for MongoDB (schema + queries).
+
+cors → allow React frontend to call your API.
+
+dotenv → manage environment variables (like DB URL, PORT).
+
+nodemon → auto-restart server during development.
+
+npm start   # production
+npm run dev # development
+
+
+5. Project structure
+ecommerce-api/
+│── server.js
+│── .env
+│── models/
+│    └── Product.js
+│── routes/
+│    └── productRoutes.js
+│── controllers/
+│    └── productController.js

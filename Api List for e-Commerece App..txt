@@ -1,0 +1,108 @@
+     Api List for e-Commerece App.
+
+Token - eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4YjE0YzBiNTQ4MzNmNjY2OGUxODU0YSIsImlhdCI6MTc1NjQ0OTgwNCwiZXhwIjoxNzU3MDU0NjA0fQ.PlGcB6ytKmIzWslC8BGw3oIDiGed7VX9FSt0QSIwC7w
+
+
+Authentication & Users
+
+Register User (POST /api/auth/register)                - Done
+
+Login User (POST /api/auth/login)                      - Done
+
+Logout (POST /api/auth/logout)                          - Done
+
+Get User Profile (GET /api/users/me)                   - Done
+
+Update User Profile (PUT /api/users/me)                 - Done
+
+Change Password / Reset Password (POST /api/auth/reset-password)     - Done
+
+🔹 Products
+
+Get All Products (GET /api/products)                            - Done
+
+Get Product by ID (GET /api/products/:id)                       - Done
+
+Search / Filter Products (GET /api/products?category=phones&price_lt=500)       Done
+
+Create Product (Admin) (POST /api/products)                               Working
+
+Update Product (Admin) (PUT /api/products/:id)                            Working
+
+Delete Product (Admin) (DELETE /api/products/:id)                         Working
+
+🔹 Categories & Brands
+
+Get Categories (GET /api/categories)                                          Working
+
+Get Products by Category (GET /api/categories/:id/products)                   Done
+
+Get Brands (GET /api/brands)                                                Working
+
+🔹 Cart
+
+Add Item to Cart (POST /api/cart)   Post API with params user_id, product_id,quantity,variant        Done
+
+Get User Cart (GET /api/cart)         getApi by id (UserId) as a query param with jwt token .  Retrun a Josn with userId,items[],totalPrice, discount. Done
+
+Update Cart Item (quantity) (PUT /api/cart/:itemId)      Done
+
+Remove Item from Cart (DELETE /api/cart/:itemId) Clear all   Done
+
+Delete cart by ProductId         Done
+
+🔹 Wishlist
+
+Add to Wishlist (POST /api/wishlist)
+
+Get Wishlist (GET /api/wishlist)
+
+Remove from Wishlist (DELETE /api/wishlist/:id)
+
+🔹 Orders
+
+Place Order (POST /api/orders)
+
+Get My Orders (GET /api/orders/my)
+
+Get Order by ID (GET /api/orders/:id)
+
+Update Order Status (Admin) (PUT /api/orders/:id)
+
+Cancel Order (DELETE /api/orders/:id)
+
+🔹 Payment
+
+Initiate Payment (POST /api/payments/initiate)
+
+Verify Payment (POST /api/payments/verify)
+
+Refund Payment (POST /api/payments/refund)
+
+🔹 Delivery / Shipping
+
+Get Delivery Address (GET /api/address)
+
+Add Delivery Address (POST /api/address)
+
+Update Delivery Address (PUT /api/address/:id)
+
+Delete Delivery Address (DELETE /api/address/:id)
+
+Track Delivery Status (GET /api/orders/:id/track)
+
+🔹 Reviews & Ratings
+
+Add Review (POST /api/products/:id/reviews)
+
+Get Reviews for Product (GET /api/products/:id/reviews)
+
+Delete Review (DELETE /api/reviews/:id)
+
+🔹 Admin / Dashboard
+
+Get All Users (Admin) (GET /api/users)
+
+Get All Orders (Admin) (GET /api/orders)
+
+Sales Analytics (Reports) (Admin) (GET /api/admin/stats)

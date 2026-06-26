@@ -1,0 +1,125 @@
+ Working with React Native
+
+1. Install Visual studio Code
+2. Install Android Studio                - set path
+3. Install xcode( In mac if using mac)
+4. Install Watch Man (if using Mac)
+5. Install Java 
+6. Install node.js
+7. SDK Version 31,32,33, etc needed 
+8. ANDOID_HOME with path set
+9. JAVA_HOME With path set
+
+Instruction for create App .
+
+1. ReactNative>npx @react-native-community/cli init MyApp --template react-native-template-typescript@next
+2. cd AppName
+3. npx react-native run-android / npx react-native run-ios
+4. For install libraries use npm 
+
+Note - use this for create new app for latest dependencies npx @react-native-community/cli init MyNewApp --version 0.78.0
+
+check for latest Recat- Native - npm view react-native version
+
+for camera and gallery implementation with React native  in Ios add this into pblist 
+
+<key>NSCameraUsageDescription</key>
+<string>This app needs access to your camera to take photos for registration.</string>
+<key>NSPhotoLibraryUsageDescription</key>
+<string>This app needs access to your photo library to select images for registration.</string>
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>This app needs permission to save photos.</string>
+ then run - cd ios && pod install
+ and in android add this into manifrast file 
+
+<uses-permission android:name="android.permission.CAMERA" />
+<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+ 
+and camera dependencies- npm install react-native-image-picker
+
+
+User Guide for RN Works on Windows.
+A) Windows setup for React Native + TypeScript (Android local)
+
+Install
+
+Git
+
+Node.js LTS 20.x
+
+JDK 17 (Temurin or Microsoft)
+
+Android Studio with:
+
+Android SDK Platform 34 or 35
+
+Build-Tools 34.x
+
+Platform-Tools
+
+Command-line Tools (latest)
+
+Android Emulator
+
+2. Set environment variables (PowerShell as Admin; adjust paths):
+   $env:JAVA_HOME="C:\Program Files\Eclipse Adoptium\jdk-17"  # or your JDK path
+[Environment]::SetEnvironmentVariable("JAVA_HOME",$env:JAVA_HOME,"Machine")
+
+$env:ANDROID_HOME="$env:LOCALAPPDATA\Android\Sdk"
+[Environment]::SetEnvironmentVariable("ANDROID_HOME",$env:ANDROID_HOME,"Machine")
+
+$path=[Environment]::GetEnvironmentVariable("Path","Machine")
+$add=";$env:ANDROID_HOME\platform-tools;$env:ANDROID_HOME\emulator;$env:ANDROID_HOME\cmdline-tools\latest\bin"
+[Environment]::SetEnvironmentVariable("Path",$path+$add,"Machine")
+
+3. Close and reopen the terminal, then verify:
+
+node -v
+java -version
+adb --version
+
+4. Create a TypeScript RN app
+
+npx @react-native-community/cli@latest init MyApp --template react-native-template-typescript
+cd MyApp
+
+
+5. Run Android
+
+6. Create an AVD in Android Studio (e.g., Pixel 7 API 34).
+
+emulator -list-avds
+emulator -avd Pixel_7_API_34
+npx react-native run-android
+
+Rent a Mac (MacStadium)
+
+Use this if you want full Xcode control and iOS Simulator.
+
+Steps
+
+Rent a Mac mini or VM.
+
+On the Mac (via VNC/RDP):
+
+Install Xcode from App Store. Open once to finish components.
+
+Install Homebrew, Node 20, Watchman, CocoaPods:
+
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install node@20 watchman cocoapods
+
+
+Clone your repo. In project root:
+
+npm ci
+cd ios && pod install && cd ..
+
+
+Open ios/MyApp.xcworkspace in Xcode, set Team, fix signing, choose a simulator, Run.
+
+Archive and export .ipa for TestFlight or Ad Hoc.
+
+
+
